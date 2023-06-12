@@ -13,20 +13,20 @@ module Noldor
 
       attr_reader :status, :data, :headers
 
-      def initialize(klass:, response:)
+      def initialize(response:, single_data:)
         @response = response
-        @klass = klass
+        @single_data = single_data
       end
 
       # Creates an instance of the given resource class
       #
-      # @return [Resource] an object of klass
+      # @return [Resource] a hash of headers, data and status
       def response
         @headers = @response.headers
         @status = @response.status
         @data = data_to_json(@response.body)
 
-        @klass.new(headers: @headers, data: @data, status: @status)
+        { headers: @headers, data: @data, status: @status }
       end
 
       def success?
@@ -48,9 +48,28 @@ module Noldor
           json['docs'] = json['docs'].map { |item| item.deep_transform_keys!(&:underscore) }
         end
 
-        JSON.parse(json.to_json, object_class: OpenStruct)
+        formatted_data = format_data(data: json)
+        JSON.parse(formatted_data.to_json, object_class: OpenStruct)
       rescue JSON::ParserError
         raise Noldor::Exceptions::InvalidResponse, 'Invalid response object'
+      end
+
+      def format_data(data:)
+        docs = data['docs']
+
+        if @single_data
+          docs.first
+        else
+          meta = {
+            limit: data['limit'],
+            offset: data['offset'],
+            page: data['page'],
+            pages: data['pages'],
+            total: data['total']
+          }
+
+          { data: docs, meta: meta }
+        end
       end
     end
   end

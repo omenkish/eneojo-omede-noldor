@@ -28,13 +28,13 @@ RSpec.describe Noldor::Resources::Book do
           res = described_class.all
 
           expect(res.class).to eq(Noldor::Resources::Book)
-          expect(res.data.docs.first.name).to eq('The Lord of the Rings Series')
+          expect(res.data.data.first.name).to eq('The Lord of the Rings Series')
         end
 
         it 'correctly transforms nested keys to snake case' do
           res = described_class.all
 
-          expect(res.data.docs.first.academy_award_wins).to eq(17)
+          expect(res.data.data.first.academy_award_wins).to eq(17)
         end
       end
     end
@@ -55,10 +55,11 @@ RSpec.describe Noldor::Resources::Book do
 
     after { Noldor.credentials.api_key = '' }
 
-    it 'successfully retrieves data' do
+    it 'returns only 1 data' do
       res = described_class.find(id: '5cd95395de30eff6ebccde56')
 
       expect(res.status).to eq(200)
+      expect(res.data.name).to eq('The Lord of the Rings Series')
     end
   end
 
@@ -81,6 +82,7 @@ RSpec.describe Noldor::Resources::Book do
       res = described_class.book_chapters(book_id: '5cd95395de30eff6ebccde56')
 
       expect(res.status).to eq(200)
+      expect(res.data.data.first.name).to eq('The Lord of the Rings Series')
     end
   end
 end

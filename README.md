@@ -63,32 +63,29 @@ After setting your api key, `Book` and `Movie` resources are available to you.
 # fetch all movies
 movies = Noldor::Resources::Movie.all
 
-movies.data.docs.first.box_office_revenue_in_millions
+movies.data.data.first.box_office_revenue_in_millions
 
 # retrieve single movie
 movie = Noldor::Resources::Movie.find(id: 'movie_id')
 
-#returns an array of 1 movie that can be accessed by docs like this
-movie.data.docs.first.name
+movie.data.name
 
 # fetch quotes for a movie
 quotes = Noldor::Resources::Movie.movie_quotes(movie_id: 'movie_id')
-quote.data.docs.first
+quote.data.data.first
 
 # fetch all movies
 movies = Noldor::Resources::Book.all
 
-Books.data.docs.first.name
+Books.data.data.first.name
 
 # retrieve single Book
 book = Noldor::Resources::Book.find(id: 'book_id')
-
-#returns an array of 1 book that can be accessed by docs like this
-book.data.docs.first.name
+book.data.name
 
 # fetch quotes for a Book
 quotes = Noldor::Resources::Book.book_chapters(book_id: 'book_id')
-quote.data.docs.first
+quote.data.data.first
 ```
 
 ### Params

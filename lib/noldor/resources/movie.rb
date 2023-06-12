@@ -8,7 +8,9 @@ module Noldor
 
       class << self
         def all(options: {})
-          retrieve(params: options,  path: RESOURCE)
+          response = retrieve(params: options, path: RESOURCE)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
 
         def find(options: {}, id:)
@@ -21,7 +23,9 @@ module Noldor
           end
 
           path = "#{RESOURCE}/#{id}"
-          retrieve(params: options, path: path)
+          response = retrieve(params: options, path: path)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
 
         def movie_quotes(options: {}, movie_id:)
@@ -34,7 +38,9 @@ module Noldor
           end
 
           path = "#{RESOURCE}/#{movie_id}/quote"
-          retrieve(params: options, path: path)
+          response = retrieve(params: options, path: path)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
       end
 

@@ -6,7 +6,7 @@ module Noldor
 
         formatted_path = set_params(params: params, path: path)
 
-        Noldor::Http::Request.instance.send_http(method: 'GET', path: formatted_path, resource_class: self)
+        Noldor::Http::Request.instance.send_http(method: 'GET', path: formatted_path)
       end
 
       private

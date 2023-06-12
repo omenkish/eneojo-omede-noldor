@@ -6,6 +6,7 @@ require_relative 'noldor/credentials'
 require_relative 'noldor/exceptions'
 require_relative 'noldor/http'
 require_relative 'noldor/resources'
+require 'pry'
 
 module Noldor
   class << self

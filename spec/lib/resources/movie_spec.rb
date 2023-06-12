@@ -26,13 +26,13 @@ RSpec.describe Noldor::Resources::Movie do
           res = described_class.all
 
           expect(res.class).to eq(Noldor::Resources::Movie)
-          expect(res.data.docs.first.name).to eq('The Lord of the Rings Series')
+          expect(res.data.data.first.name).to eq('The Lord of the Rings Series')
         end
 
         it 'correctly transforms nested keys to snake case' do
           res = described_class.all
 
-          expect(res.data.docs.first.academy_award_wins).to eq(17)
+          expect(res.data.data.first.academy_award_wins).to eq(17)
         end
       end
     end

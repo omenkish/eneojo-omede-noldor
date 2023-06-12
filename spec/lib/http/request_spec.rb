@@ -2,7 +2,7 @@
 
 RSpec.describe Noldor::Http::Request do
   describe '#send_http' do
-    let(:params) { { method: 'GET', path: 'book', resource_class: Noldor::Resources::Book } }
+    let(:params) { { method: 'GET', path: 'book' } }
 
     context 'when credentials is not set' do
       it { expect { described_class.instance.send_http(**params) }.to raise_error(Noldor::Exceptions::InvalidRequest, 'Please provide a valid api key') }
@@ -25,8 +25,7 @@ RSpec.describe Noldor::Http::Request do
         it 'returns a valid book object' do
           res = described_class.instance.send_http(**params)
 
-          expect(res.class).to eq(Noldor::Resources::Book)
-          expect(res.data.docs.first.name).to eq('The Lord of the Rings Series')
+          expect(res[:data].data.first.name).to eq('The Lord of the Rings Series')
         end
       end
 
@@ -45,7 +44,7 @@ RSpec.describe Noldor::Http::Request do
       end
 
       context 'with invalid url' do
-        let(:params) { { method: 'GET', path: Noldor, resource_class: Noldor::Resources::Book } }
+        let(:params) { { method: 'GET', path: Noldor } }
 
         it {
           expect { described_class.instance.send_http(**params) }

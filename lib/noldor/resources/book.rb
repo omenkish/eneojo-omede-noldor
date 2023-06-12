@@ -3,13 +3,15 @@
 module Noldor
   module Resources
     class Book
-      RESOURCE = 'book'
+      RESOURCE_NAME = 'book'
 
       extend Noldor::Resources::Base
 
       class << self
         def all(options: {})
-          retrieve(params: options, path: RESOURCE)
+          response = retrieve(params: options, path: RESOURCE_NAME)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
 
         def find(id:, options: {})
@@ -21,8 +23,10 @@ module Noldor
             return false
           end
 
-          path = "#{RESOURCE}/#{id}"
-          retrieve(params: options, path: path)
+          path = "#{RESOURCE_NAME}/#{id}"
+          response = retrieve(params: options, path: path)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
 
         def book_chapters(book_id:, options: {})
@@ -34,8 +38,10 @@ module Noldor
             return false
           end
 
-          path = "#{RESOURCE}/#{book_id}/chapter"
-          retrieve(params: options, path: path)
+          path = "#{RESOURCE_NAME}/#{book_id}/chapter"
+          response = retrieve(params: options, path: path)
+
+          new(headers: response[:headers], data: response[:data], status: response[:status])
         end
       end
 
