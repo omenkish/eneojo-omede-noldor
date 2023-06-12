@@ -1,8 +1,12 @@
 # Noldor
 
-TODO: Delete this and the text below, and describe your gem
+Noldor is a wrapper/SDK/library around the https://the-one-api.dev/ api. The API lists the Lord of the Rings movies, books, qoutes and chapters.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/noldor`. To experiment with that code, run `bin/console` for an interactive prompt.
+This Library provides convenient access to the books and movies api
+
+### Requirements
+
+- Ruby >=2.6
 
 ## Installation
 
@@ -16,11 +20,95 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
     $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
 
+
 ## Usage
 
-TODO: Write usage instructions here
+The library needs to be configured with your account's secret key which you can get by creating an account [here](https://the-one-api.dev/). Set `Noldor.credentials.api_key` to its value. You can set your configurations in two ways:
+
+```ruby
+require 'noldor'
+
+Noldor.credentials.api_key = 'YOUR_API_KEY'
+Noldor.credentials.exception_enabled = false
+
+```
+
+OR you can pass in a block like this
+
+```ruby
+Noldor.configure do |config|
+    config.api_key = 'YOUR_API_KEY'
+    config.exception_enabled = false
+end
+
+```
+
+Exceptions are enabled by default.
+
+
+After setting your api key, `Book` and `Movie` resources are available to you.
+
+```ruby
+
+# fetch all movies
+movies = Noldor::Resources::Movie.all
+
+movies.data.docs.first.box_office_revenue_in_millions
+
+# retrieve single movie
+movie = Noldor::Resources::Movie.find(id: 'movie_id')
+
+#returns an array of 1 movie that can be accessed by docs like this
+movie.data.docs.first.name
+
+# fetch quotes for a movie
+quotes = Noldor::Resources::Movie.movie_quotes(movie_id: 'movie_id')
+quote.data.docs.first
+
+# fetch all movies
+movies = Noldor::Resources::Book.all
+
+Books.data.docs.first.name
+
+# retrieve single Book
+book = Noldor::Resources::Book.find(id: 'book_id')
+
+#returns an array of 1 book that can be accessed by docs like this
+book.data.docs.first.name
+
+# fetch quotes for a Book
+quotes = Noldor::Resources::Book.book_chapters(book_id: 'book_id')
+quote.data.docs.first
+```
+
+### Params
+```ruby
+# using params as hash
+Noldor::Resources::Movie.all(options: { limit: 3, page: 2 })
+
+chapter = Noldor::Resources::Book.book_chapters(book_id: 'book_id', options: { sort: 'DESC'})
+
+```
 
 ## Development
+
+Instructions to run tests:
+
+```sh
+bundle install
+```
+
+Run all tests:
+
+```sh
+bundle exec rspec
+```
+
+Run a single test:
+
+```sh
+bundle exec rspec spec/lib/resources/book_spec.rb
+```
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
@@ -28,7 +116,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/omenkish/noldor.
+Bug reports and pull requests are welcome on GitHub at https://github.com/omenkish/eneojo-omede-noldor.
 
 ## License
 
