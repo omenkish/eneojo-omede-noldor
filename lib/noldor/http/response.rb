@@ -6,8 +6,8 @@ module Noldor
   module Http
     # Creates an instance of the given resource class
     #
-    # @param [String, #read] contents the contents to reverse
-    # @return [Resource] the resource object
+    # @param [klass, response]
+    # @return [resource] the resource object
     class Response
       using ControlledPatch
 
@@ -20,7 +20,7 @@ module Noldor
 
       # Creates an instance of the given resource class
       #
-      # @return [Resource] the resource object
+      # @return [Resource] an object of klass
       def response
         @headers = @response.headers
         @status = @response.status

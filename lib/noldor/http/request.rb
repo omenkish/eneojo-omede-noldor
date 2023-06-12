@@ -11,6 +11,10 @@ module Noldor
 
       def initialize; end
 
+      # Sends a request to the third party API and returns a formatted response to the caller
+      # example: send_http(method: 'GET', path: '/home', resource_class: Noldor::Home, options: { limit: 12 })
+      # 
+      #
       def send_http(method:, path:, resource_class:, options: {})
         raise ArgumentError, 'Invalid url format' unless path.is_a? String
 
