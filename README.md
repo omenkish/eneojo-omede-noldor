@@ -9,16 +9,21 @@ This Library provides convenient access to the books and movies api
 - Ruby >=2.6
 
 ## Installation
+This can be installed as a gem
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+```ruby
+gem 'noldor', github: 'omenkish/eneojo-omede-noldor
+```
 
-Install the gem and add to the application's Gemfile by executing:
+OR  via this Github repo path. Add this line to your application's Gemfile:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'noldor'
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+And then execute:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle install
 
 
 ## Usage
