@@ -8,11 +8,11 @@ module Noldor
       extend Noldor::Resources::Base
 
       class << self
-        def all(options = {})
+        def all(options: {})
           retrieve(params: options, path: RESOURCE)
         end
 
-        def find(options = {}, id:)
+        def find(id:, options: {})
           if id.nil? || id.empty?
             if Noldor.credentials.exception_enabled
               raise Noldor::Exceptions::InvalidRequest, 'ID is required for this action'
@@ -25,7 +25,7 @@ module Noldor
           retrieve(params: options, path: path)
         end
 
-        def book_chapters(options = {}, book_id:)
+        def book_chapters(book_id:, options: {})
           if book_id.nil? || book_id.empty?
             if Noldor.credentials.exception_enabled
               raise Noldor::Exceptions::InvalidRequest, 'ID is required for this action'
