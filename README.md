@@ -74,10 +74,10 @@ movie.data.name
 quotes = Noldor::Resources::Movie.movie_quotes(movie_id: 'movie_id')
 quote.data.data.first
 
-# fetch all movies
-movies = Noldor::Resources::Book.all
+# fetch all books
+books = Noldor::Resources::Book.all
 
-Books.data.data.first.name
+books.data.data.first.name
 
 # retrieve single Book
 book = Noldor::Resources::Book.find(id: 'book_id')
